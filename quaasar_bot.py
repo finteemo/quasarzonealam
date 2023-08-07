@@ -10,11 +10,13 @@ import os
 import telegram
 import asyncio
 
-with open('snsid', 'r') as f:
-    secret = {l.split('=')[0]: l.split('=')[1].rstrip() for l in f.readlines()}
+def get_id():
+    with open('snsid', 'r') as f:
+        secret = {l.split('=')[0]: l.split('=')[1].rstrip() for l in f.readlines()}
 
-token = secret['telegram_token']
-test1id = secret['test1id']
+    token = secret['telegram_token']
+    test1id = secret['test1id']
+    return token, test1id
 
 def gethotdeal():
     op = webdriver.ChromeOptions()
@@ -48,6 +50,7 @@ def gethotdeal():
     return latest
 
 def send_tgmessage(latest):
+    token, test1id= get_id()
     BASE_DIR = os.path.dirname(os.path.abspath('__file__'))
     async def main(hotdealmessage): #실행시킬 함수명 임의지정
         token = token
