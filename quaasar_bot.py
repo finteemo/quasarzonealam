@@ -77,6 +77,6 @@ def send_tgmessage(latest, key_word):
         f_write.write(latest)
         f_write.close()
 
-while 1==1:
-    send_tgmessage(gethotdeal(), '990 pro')
-    time.sleep(90)
+# while 1==1:
+#     send_tgmessage(gethotdeal(), '990 pro')
+#     time.sleep(90)
