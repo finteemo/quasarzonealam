@@ -8,7 +8,7 @@ import copy
 from bs4 import BeautifulSoup
 from datetime import datetime
 
-import kakao
+import test.kakao as kakao
 
 # 변수 선언
 site_url = 'https://m.ppomppu.co.kr/new/'  # 사이트 URL
