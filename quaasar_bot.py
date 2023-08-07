@@ -10,6 +10,7 @@ import os
 import telegram
 import asyncio
 
+# 토큰 아이디 가져오기
 def get_id():
     with open('snsid', 'r') as f:
         secret = {l.split('=')[0]: l.split('=')[1].rstrip() for l in f.readlines()}
@@ -18,6 +19,7 @@ def get_id():
     test1id = secret['test1id']
     return token, test1id
 
+# 크롤링 함수
 def gethotdeal():
     op = webdriver.ChromeOptions()
     op.add_argument("headless")
@@ -49,7 +51,8 @@ def gethotdeal():
 
     return latest
 
-def send_tgmessage(latest):
+# 메세지 부분
+def send_tgmessage(latest, key_word):
     token, test1id= get_id()
     BASE_DIR = os.path.dirname(os.path.abspath('__file__'))
     async def main(hotdealmessage): #실행시킬 함수명 임의지정
@@ -58,11 +61,11 @@ def send_tgmessage(latest):
         bot = telegram.Bot(token = token)
         await bot.send_message(chat_id, hotdealmessage)
 
-    key_word='삼성'
+
     with open(os.path.join(BASE_DIR, 'quasar_zone.txt'), 'r+') as f_read:
         before = f_read.readline()
-        if (before != latest):
-        #if (before != latest) & (key_word in latest):
+        #if (before != latest):
+        if (before != latest) & (key_word in latest):
             hotdealmessage = f'{key_word} 관련 새 글이 올라왔어요!' +  latest # posts
             asyncio.run(main(hotdealmessage))
             print('전송했음')
@@ -75,5 +78,5 @@ def send_tgmessage(latest):
         f_write.close()
 
 while 1==1:
-    send_tgmessage(gethotdeal())
+    send_tgmessage(gethotdeal(), '990 pro')
     time.sleep(90)
